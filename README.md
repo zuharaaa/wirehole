@@ -21,6 +21,40 @@ Give a ⭐ if this project helped you!
 
 ### Quickstart
 
+#### 1. Install Docker 
+
+```bash
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+```  
+
+```bash
+# Add the repository to Apt sources:
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```  
+
+```bash
+# Install docker
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+sudo chmod g+rwx "$HOME/.docker" -R
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+```
+
+#### 2. Deploy The Wirehole
+
 To begin using WireHole, clone the repository and start the containers:
 
 ```bash
@@ -40,6 +74,8 @@ docker compose up
 ```
 
 Remember to set secure passwords for  `WG_PASSWORD`, and `PIHOLE_PASSWORD` in your `.env` file.
+
+
 
 ---
 
